@@ -30,7 +30,6 @@ describe("crypto lib", () => {
     describe("red path", () => {
       it("returns false with different key", () => {
         const secret = "ThisIsMySecretKeyAltered";
-        const message = "This is my plaintext message";
 
         const result = compareHMACSHA1Signature(
           secret,
@@ -41,7 +40,6 @@ describe("crypto lib", () => {
         expect(result).toBe(false);
       });
       it("returns false with different message", () => {
-        const secret = "ThisIsMySecretKey";
         const message = "This is my plaintext message altered";
 
         const result = compareHMACSHA1Signature(
