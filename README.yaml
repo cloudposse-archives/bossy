@@ -1,0 +1,86 @@
+---
+#
+# This is the canonical configuration for the `README.md`
+# Run `make readme` to rebuild the `README.md`
+#
+
+# Name of this project
+name: bossy
+
+# Logo for this project
+#logo: docs/logo.png
+
+# License of this project
+license: "APACHE2"
+
+# Copyrights
+copyrights:
+  - name: "Cloud Posse, LLC"
+    url: "https://cloudposse.com"
+    year: "2021"
+
+# Canonical GitHub repo
+github_repo: cloudposse/bossy
+
+# Badges to display
+badges:
+  - name: "Build Status"
+    image: "https://github.com/cloudposse/build-harness/workflows/docker/badge.svg?branch=master"
+    url: "https://github.com/cloudposse/build-harness/actions?query=workflow%3Adocker"
+  - name: "Latest Release"
+    image: "https://img.shields.io/github/release/cloudposse/build-harness.svg"
+    url: "https://github.com/cloudposse/build-harness/releases/latest"
+  - name: "Slack Community"
+    image: "https://slack.cloudposse.com/badge.svg"
+    url: "https://slack.cloudposse.com"
+  - name: "Discourse Forum"
+    image: "https://img.shields.io/discourse/https/ask.sweetops.com/posts.svg"
+    url: "https://ask.sweetops.com/"
+
+#related:
+#  - name: "Packages"
+#    description: "Cloud Posse installer and distribution of native apps"
+#    url: "https://github.com/cloudposse/packages"
+
+# References
+#references:
+#  - name: "Wikipedia - Test Harness"
+#    description: 'The `build-harness` is similar in concept to a "Test Harness"'
+#    url: "https://en.wikipedia.org/wiki/Test_harness"
+
+# Screenshots
+#screenshots:
+#  - name: "demo"
+#    description: "Example of using the `build-harness` to build a docker image"
+#    url: "https://cdn.rawgit.com/cloudposse/build-harness/master/docs/demo.svg"
+
+# Short description of this project
+description: |-
+  The Cloud Posse bossy bot repo
+
+  TODO: Add a short description of this project
+
+# Introduction to the project
+#introduction: |-
+#  This is an introduction.
+
+# How to use this project
+usage: |-
+  TODO: Write usage
+
+# Example usage
+examples: |-
+  Here are some real world examples:
+
+  TODO: Add examples
+
+# How to get started quickly
+quickstart: |-
+  Here's how to get started...
+
+  TODO: update this section
+
+# Contributors to this project
+contributors:
+  - name: "Matt Calhoun"
+    github: "mcalhoun"
