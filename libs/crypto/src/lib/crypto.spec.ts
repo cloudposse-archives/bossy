@@ -17,8 +17,11 @@ describe("crypto lib", () => {
   describe("compareHMACSignature", () => {
     describe("green path", () => {
       it("returns true", () => {
-        const signature = "00e04f75727b3789014d5e7b90309341aaf425dd";
-        const result = compareHMACSHA1Signature(secret, message, signature);
+        const result = compareHMACSHA1Signature(
+          secret,
+          message,
+          calculatedSignature
+        );
 
         expect(result).toBe(true);
       });
