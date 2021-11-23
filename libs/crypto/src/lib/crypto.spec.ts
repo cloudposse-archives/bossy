@@ -7,7 +7,6 @@ describe("crypto lib", () => {
         const secret = "ThisIsMySecretKey";
         const message = "This is my plaintext message";
         const signature = createHMACSHA1Signature(secret, message);
-        console.log(signature);
 
         expect(signature).toBe(
           "00e04f75727b3789014d5e7b90309341aaf425dd" // https://www.freeformatter.com/hmac-generator.html
