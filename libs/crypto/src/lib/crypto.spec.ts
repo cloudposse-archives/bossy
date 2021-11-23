@@ -1,16 +1,15 @@
 import { compareHMACSHA1Signature, createHMACSHA1Signature } from "./crypto";
 
+const secret = "ThisIsMySecretKey";
+const message = "This is my plaintext message";
+const calculatedSignature = "00e04f75727b3789014d5e7b90309341aaf425dd"; // https://www.freeformatter.com/hmac-generator.html
+
 describe("crypto lib", () => {
   describe("createHMACSignature", () => {
     describe("green path", () => {
       it("generates a valid hmac-sha1 signature", () => {
-        const secret = "ThisIsMySecretKey";
-        const message = "This is my plaintext message";
         const signature = createHMACSHA1Signature(secret, message);
-
-        expect(signature).toBe(
-          "00e04f75727b3789014d5e7b90309341aaf425dd" // https://www.freeformatter.com/hmac-generator.html
-        );
+        expect(signature).toBe(calculatedSignature);
       });
     });
   });
@@ -18,10 +17,7 @@ describe("crypto lib", () => {
   describe("compareHMACSignature", () => {
     describe("green path", () => {
       it("returns true", () => {
-        const secret = "ThisIsMySecretKey";
-        const message = "This is my plaintext message";
         const signature = "00e04f75727b3789014d5e7b90309341aaf425dd";
-
         const result = compareHMACSHA1Signature(secret, message, signature);
 
         expect(result).toBe(true);
@@ -32,18 +28,24 @@ describe("crypto lib", () => {
       it("returns false with different key", () => {
         const secret = "ThisIsMySecretKeyAltered";
         const message = "This is my plaintext message";
-        const signature = "00e04f75727b3789014d5e7b90309341aaf425dd";
 
-        const result = compareHMACSHA1Signature(secret, message, signature);
+        const result = compareHMACSHA1Signature(
+          secret,
+          message,
+          calculatedSignature
+        );
 
         expect(result).toBe(false);
       });
       it("returns false with different message", () => {
         const secret = "ThisIsMySecretKey";
         const message = "This is my plaintext message altered";
-        const signature = "00e04f75727b3789014d5e7b90309341aaf425dd";
 
-        const result = compareHMACSHA1Signature(secret, message, signature);
+        const result = compareHMACSHA1Signature(
+          secret,
+          message,
+          calculatedSignature
+        );
 
         expect(result).toBe(false);
       });
