@@ -1,6 +1,6 @@
 # crypto
 
-This library was generated with [Nx](https://nx.dev).
+This library contains various functionality for working with cryptography, such as verify GitHub and Spacelift payloads.
 
 ## Running unit tests
 
