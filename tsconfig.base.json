@@ -18,6 +18,7 @@
     "baseUrl": ".",
     "paths": {
       "@cloudposse/common": ["libs/common/common//src/index.ts"],
+      "@cloudposse/modules/spacelift": ["libs/modules/spacelift/src/index.ts"],
       "@cloudposse/slack": ["libs/common/slack/src/index.ts"],
       "@cloudposse/spacelift": ["libs/common/spacelift/src/index.ts"]
     }

@@ -4,3 +4,5 @@ slack:
   oauth_token: BOSSY_OAUTH_TOKEN
   secret: BOSSY_SLACK_SECRET
   signing_secret: BOSSY_SLACK_SIGNING_SECRET
+spaceliftToSlack:
+  slack_channel: BOSSY_SPACELIFT_TO_SLACK_CHANNEL

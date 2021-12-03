@@ -2,6 +2,7 @@
   "version": 2,
   "projects": {
     "common": "libs/common/common",
+    "modules-spacelift": "libs/modules/spacelift",
     "slack": "libs/common/slack",
     "spacelift": "libs/common/spacelift"
   }

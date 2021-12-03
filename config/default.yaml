@@ -3,3 +3,5 @@ slack:
   oauth_token: default
   secret: default
   signing_secret: default
+spaceliftToSlack:
+  slack_channel: default
