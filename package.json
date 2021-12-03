@@ -1,5 +1,5 @@
 {
-  "name": "cloudposse",
+  "name": "bossy",
   "version": "0.0.0",
   "license": "Apache-2.0",
   "scripts": {
@@ -11,8 +11,11 @@
   "dependencies": {
     "@slack/bolt": "^3.8.1",
     "@slack/web-api": "^6.4.0",
+    "@vendia/serverless-express": "^4.5.2",
     "config": "^3.3.6",
     "crypto": "^1.0.1",
+    "express": "4.17.1",
+    "helmet": "^4.6.0",
     "js-yaml": "^4.1.0",
     "tslib": "^2.0.0",
     "winston": "^3.3.3"
@@ -20,12 +23,16 @@
   "devDependencies": {
     "@nrwl/cli": "13.2.3",
     "@nrwl/eslint-plugin-nx": "^13.2.3",
+    "@nrwl/express": "^13.2.3",
     "@nrwl/jest": "13.2.3",
     "@nrwl/node": "13.2.3",
     "@nrwl/tao": "13.2.3",
     "@nrwl/workspace": "13.2.3",
+    "@types/": "vendia/serverless-express",
     "@types/config": "^0.0.40",
+    "@types/express": "^4.17.13",
     "@types/jest": "27.0.3",
+    "@types/node": "14",
     "@types/winston": "^2.4.4",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
