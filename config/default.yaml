@@ -1,0 +1,5 @@
+env: production
+slack:
+  oauth_token: default
+  secret: default
+  signing_secret: default
