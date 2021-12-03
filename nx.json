@@ -4,7 +4,7 @@
     "defaultBase": "origin/main"
   },
   "cli": {
-    "defaultCollection": "@nrwl/workspace"
+    "defaultCollection": "@nrwl/express"
   },
   "implicitDependencies": {
     "package.json": {
@@ -28,5 +28,6 @@
         "projects": "dependencies"
       }
     ]
-  }
+  },
+  "defaultProject": "bossy"
 }
