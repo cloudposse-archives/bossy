@@ -1,0 +1,23 @@
+{
+  "root": "libs/common/spacelift",
+  "sourceRoot": "libs/common/spacelift/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/common/spacelift/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/common/spacelift"],
+      "options": {
+        "jestConfig": "libs/common/spacelift/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
