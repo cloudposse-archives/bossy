@@ -9,9 +9,12 @@
   },
   "private": true,
   "dependencies": {
+    "@slack/bolt": "^3.8.1",
+    "@slack/web-api": "^6.4.0",
     "config": "^3.3.6",
     "crypto": "^1.0.1",
     "js-yaml": "^4.1.0",
+    "tslib": "^2.0.0",
     "winston": "^3.3.3"
   },
   "devDependencies": {

@@ -18,6 +18,7 @@
     "baseUrl": ".",
     "paths": {
       "@cloudposse/common": ["libs/common/common//src/index.ts"],
+      "@cloudposse/slack": ["libs/common/slack/src/index.ts"],
     }
   },
   "exclude": ["node_modules", "tmp"]
