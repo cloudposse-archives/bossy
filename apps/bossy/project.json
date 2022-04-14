@@ -10,7 +10,8 @@
         "outputPath": "dist/apps/bossy",
         "main": "apps/bossy/src/main.ts",
         "tsConfig": "apps/bossy/tsconfig.app.json",
-        "assets": ["apps/bossy/src/assets"]
+        "assets": ["apps/bossy/src/assets"],
+        "generatePackageJson": true
       },
       "configurations": {
         "production": {
@@ -24,6 +25,26 @@
             }
           ]
         }
+      }
+    },
+    "docker-build": {
+      "builder": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          "nx build bossy",
+          "docker build -f ./apps/bossy/Dockerfile . -t bossy"
+        ],
+        "parallel": false
+      }
+    },
+    "docker-tag": {
+      "builder": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          "nx build bossy",
+          "docker build -f ./apps/bossy/Dockerfile . -t bossy"
+        ],
+        "parallel": false
       }
     },
     "serve": {
