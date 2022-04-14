@@ -27,3 +27,7 @@ jobs:
       - name: run nx affected test
         shell: bash
         run: npx nx affected --target=test --base=$BEFORE_SHA
+
+      - name: run nx affected build
+        shell: bash
+        run: npx nx affected --target=build --base=$BEFORE_SHA
