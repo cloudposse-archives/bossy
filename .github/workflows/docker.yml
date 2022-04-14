@@ -8,14 +8,22 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
       - name: Use Node.js 14.x
         uses: actions/setup-node@v1
         with:
           node-version: 14.x
 
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
       - run: git fetch origin main
       - run: yarn install
+
+      - name: run nx affected lint
+        shell: bash
+        run: npx nx affected --target=lint --base=$BEFORE_SHA
+
+      - name: run nx affected test
+        shell: bash
+        run: npx nx affected --target=test --base=$BEFORE_SHA
