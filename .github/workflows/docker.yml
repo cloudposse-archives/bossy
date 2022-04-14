@@ -1,26 +1,26 @@
-- name: "build-apps"
-  on: push
+name: "build-apps"
+on: push
 
-  env:
-    BEFORE_SHA: ${{ github.event.before }}
+env:
+  BEFORE_SHA: ${{ github.event.before }}
 
-  jobs:
-    build:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-          with:
-            fetch-depth: 0
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
-        - name: Use Node.js 14.x
-          uses: actions/setup-node@v1
-          with:
-            node-version: 14.x
-            cache: "yarn"
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+          cache: "yarn"
 
-        - run: git fetch origin main
-        - name: yarn install
-          run: yarn install
+      - run: git fetch origin main
+      - name: yarn install
+        run: yarn install
 
-        - name: codepack enable
-          run: corepack enable
+      - name: codepack enable
+        run: corepack enable
