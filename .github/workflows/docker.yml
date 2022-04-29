@@ -1,13 +1,20 @@
 name: "build-apps"
-on: push
+on:
+  push:
+    branches:
+      - feature/update-workflow
 
 env:
   BEFORE_SHA: ${{ github.event.before }}
+  GITHUB_CONTEXT: ${{ toJson(github) }} # TODO: Remove after testing
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # TODO: Remove after testing
+      - run: echo "$GITHUB_CONTEXT"
+
       - name: Use Node.js 14.x
         uses: actions/setup-node@v1
         with:
@@ -30,4 +37,10 @@ jobs:
 
       - name: run nx affected build
         shell: bash
-        run: npx nx affected --target=build --base=$BEFORE_SHA
+        run: npx nx affected --target=build --base=$BEFORE_SHA #--base=remotes/origin/main
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
