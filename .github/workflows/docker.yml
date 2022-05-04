@@ -65,6 +65,6 @@ jobs:
           docker-registry: ${{ env.BOSSY_ECR_REGISTRY }}
           subdirectory: ./apps/bossy
 
-      - run: ls /home/runner/work/_actions/cloudposse/github-action-ci-docker
+      - run: ls /home/runner/work/_actions/cloudposse/github-action-ci-docker/main
         if: always()
         shell: bash
