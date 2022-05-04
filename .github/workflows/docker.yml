@@ -56,9 +56,6 @@ jobs:
         shell: bash
         run: npx nx affected --target=build --base=$BEFORE_SHA #--base=remotes/origin/main
 
-      - run: ls /home/runner/work/_actions
-        shell: bash
-
       - name: Build Docker Image for Bossy
         uses: cloudposse/github-action-ci-docker@main
         with:
@@ -68,6 +65,6 @@ jobs:
           docker-registry: ${{ env.BOSSY_ECR_REGISTRY }}
           subdirectory: ./apps/bossy
 
-      - run: ls /home/runner/work/_actions
+      - run: ls /home/runner/work/_actions/cloudposse/github-action-ci-docker
         if: always()
         shell: bash
