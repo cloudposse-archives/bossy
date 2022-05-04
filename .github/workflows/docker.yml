@@ -57,7 +57,7 @@ jobs:
         run: npx nx affected --target=build --base=$BEFORE_SHA #--base=remotes/origin/main
 
       - name: Build Docker Image for Bossy
-        uses: cloudposse/github-action-ci-docker@main
+        uses: cloudposse/github-action-ci-docker@bug/fix-issue-with-require-path
         with:
           aws-assume-role: "true"
           aws-iam-role-arn: ${{ env.IAM_ROLE_ARN }}
