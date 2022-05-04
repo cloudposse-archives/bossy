@@ -4,9 +4,16 @@ on:
     branches:
       - feature/update-workflow
 
+permissions:
+  id-token: write
+  contents: read
+
 env:
   BEFORE_SHA: ${{ github.event.before }}
   GITHUB_CONTEXT: ${{ toJson(github) }} # TODO: Remove after testing
+  AWS_REGION: us-east-1
+  IAM_ROLE_ARN: arn:aws:iam::847349463865:role/cplive-core-ue1-public-ecr-public-github-action
+  BOSSY_ECR_REGISTRY: public.ecr.aws/h1u4b2i4/cloudposse/bossy
 
 jobs:
   build:
@@ -15,29 +22,10 @@ jobs:
       # TODO: Remove after testing
       - run: echo "$GITHUB_CONTEXT"
 
-      - name: Use Node.js 14.x
+      - name: Use Node.js 16.x
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
-
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - run: git fetch origin main
-      - run: yarn install
-
-      - name: run nx affected lint
-        shell: bash
-        run: npx nx affected --target=lint --base=$BEFORE_SHA
-
-      - name: run nx affected test
-        shell: bash
-        run: npx nx affected --target=test --base=$BEFORE_SHA
-
-      - name: run nx affected build
-        shell: bash
-        run: npx nx affected --target=build --base=$BEFORE_SHA #--base=remotes/origin/main
+          node-version: 16.x
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -45,6 +33,34 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
-      - name: run nx affected build
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Checkout main
+        run: git fetch origin main
+
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: Lint Affected Projects
         shell: bash
-        run: npx nx affected --target=docker-build --base=$BEFORE_SHA
+        run: npx nx affected --target=lint --base=$BEFORE_SHA
+
+      - name: Test Affected Projects
+        shell: bash
+        run: npx nx affected --target=test --base=$BEFORE_SHA
+
+      - name: Build Affected Projects
+        shell: bash
+        run: npx nx affected --target=build --base=$BEFORE_SHA #--base=remotes/origin/main
+
+      - name: Build Docker Image for Bossy
+        uses: cloudposse/github-action-ci-docker@main
+        with:
+          aws-assume-role: "true"
+          aws-iam-role-arn: ${{ env.IAM_ROLE_ARN }}
+          aws-ecr-login: "true"
+          docker-registry: ${{ env.BOSSY_ECR_REGISTRY }}
+          subdirectory: ./apps/bossy
