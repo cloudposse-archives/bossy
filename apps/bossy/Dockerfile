@@ -9,8 +9,7 @@ COPY dist/apps/bossy/package.json ${LAMBDA_TASK_ROOT}
 RUN npm install --production
 
 # add config
-RUN mkdir -p ${LAMBDA_TASK_ROOT}/config
-COPY apps/bossy/config/ ${LAMBDA_TASK_ROOT}/config/
+ADD config ${LAMBDA_TASK_ROOT}/config
 
 ENV NODE_ENV=production
 
