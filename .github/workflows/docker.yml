@@ -71,3 +71,4 @@ jobs:
           aws-ecr-login: "true"
           docker-registry: ${{ env.BOSSY_ECR_REGISTRY }}
           subdirectory: ./apps/bossy
+      -  run: ls -latr /
