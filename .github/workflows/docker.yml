@@ -61,10 +61,10 @@ jobs:
         with:
           repository: cloudposse/github-action-ci-docker
           ref: bug/fix-issue-with-require-path
-          path: actions
+          path: action
 
       - name: Build Docker Image for Bossy
-        uses: ./actions
+        uses: ./action
         with:
           aws-assume-role: "true"
           aws-iam-role-arn: ${{ env.IAM_ROLE_ARN }}
