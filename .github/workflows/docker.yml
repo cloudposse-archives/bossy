@@ -59,7 +59,7 @@ jobs:
       - name: Checkout github-action-ci-docker Repository
         uses: actions/checkout@v2
         with:
-          repository: github-action-ci-docker
+          repository: cloudposse/github-action-ci-docker
           ref: bug/fix-issue-with-require-path
           path: actions
 
@@ -71,7 +71,3 @@ jobs:
           aws-ecr-login: "true"
           docker-registry: ${{ env.BOSSY_ECR_REGISTRY }}
           subdirectory: ./apps/bossy
-
-      - run: ls /home/runner/work/_actions/cloudposse/github-action-ci-docker/main
-        if: always()
-        shell: bash
