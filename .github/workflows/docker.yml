@@ -56,6 +56,13 @@ jobs:
         shell: bash
         run: npx nx affected --target=build --base=$BEFORE_SHA #--base=remotes/origin/main
 
+      - name: Checkout github-action-ci-docker Repository
+        uses: actions/checkout@v2
+        with:
+          repository: github-action-ci-docker
+          ref: bug/fix-issue-with-require-path
+          path: actions
+
       - name: Build Docker Image for Bossy
         uses: cloudposse/github-action-ci-docker@bug/fix-issue-with-require-path
         with:
