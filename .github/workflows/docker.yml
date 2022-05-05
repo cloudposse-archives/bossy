@@ -70,5 +70,5 @@ jobs:
           aws-iam-role-arn: ${{ env.IAM_ROLE_ARN }}
           aws-ecr-login: "true"
           docker-registry: ${{ env.BOSSY_ECR_REGISTRY }}
-          subdirectory: ./
-          file: ./apps/boss/Dockerfile
+          subdirectory: ${GITHUB_WORKSPACE}
+          file: ./apps/bossy/Dockerfile
