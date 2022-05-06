@@ -84,5 +84,6 @@ jobs:
         with:
           context: .
           file: ./apps/bossy/Dockerfile
+          load: true
           push: true
           tags: ${{ env.BOSSY_ECR_REGISTRY }}:${{github.sha}}
