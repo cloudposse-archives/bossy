@@ -32,7 +32,7 @@
       "options": {
         "commands": [
           "nx build bossy",
-          "docker buildx build -f ./apps/bossy/Dockerfile . -t bossy"
+          "docker build -f ./apps/bossy/Dockerfile . -t bossy"
         ],
         "parallel": false
       }
@@ -42,7 +42,7 @@
       "options": {
         "commands": [
           "nx build bossy",
-          "docker buildx build -f ./apps/bossy/Dockerfile . -t bossy"
+          "docker build -f ./apps/bossy/Dockerfile . -t bossy"
         ],
         "parallel": false
       }
