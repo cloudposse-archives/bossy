@@ -70,6 +70,19 @@ jobs:
           cd /home/runner/work/bossy
           tree -d -L 3 -I node_modules
 
+      - name: Build Docker Image for Bossy Direct
+        if: steps.vars.outputs.image_build_enabled == 'true'
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: ./apps/bossy/Dockerfile
+          pull: true
+          push: false
+          secrets: |
+            ${{ inputs.secrets }}
+          tags: |
+            ${{ steps.vars.outputs.image_tag_sha }}
+
       - name: Build Docker Image for Bossy
         uses: ./action
         with:
