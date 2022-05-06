@@ -63,22 +63,6 @@ jobs:
           ref: bug/fix-issue-with-require-path
           path: action
 
-      - run: |
-          pwd
-          cd /home/runner/work/_actions
-          tree -d -L 3 -I node_modules
-          cd /home/runner/work/bossy
-          tree -d -L 3 -I node_modules
-
-      - name: Build Docker Image for Bossy Direct
-        uses: docker/build-push-action@v2
-        with:
-          context: ./
-          file: ./apps/bossy/Dockerfile
-          pull: false
-          push: false
-          secrets: |
-
       - name: Build Docker Image for Bossy
         uses: ./action
         with:
