@@ -43,8 +43,10 @@ jobs:
           aws-region: us-east-1
           role-to-assume: ${{ env.IAM_ROLE_ARN }}
           role-session-name: ${{ env.IAM_ROLE_SESSION_NAME }}
-      - name: Login to Private Amazon ECR
-        uses: aws-actions/amazon-ecr-login@v1
+      - name: Login to Public Amazon ECR
+        run: |
+          aws ecr-public get-login-password --region ${{ env.AWS_REGION }} | docker login --username AWS --password-stdin public.ecr.aws
+        shell: bash
 
       ##################################################
       # Checkout the repository
