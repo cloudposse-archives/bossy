@@ -65,9 +65,9 @@ jobs:
 
       - run: |
           cd /home/runner/work/_actions
-          tree -d -L 3
+          tree -d -L 3 -I node_modules
           cd /home/runner/work/bossy
-          tree -d -L 3
+          tree -d -L 3 -I node_modules
 
       - name: Build Docker Image for Bossy
         uses: ./action
