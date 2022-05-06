@@ -63,7 +63,7 @@ jobs:
           ref: bug/fix-issue-with-require-path
           path: action
 
-      - run: cd /home/runner && tree -d
+      - run: cd /home/runner && tree -d -L 3
 
       - name: Build Docker Image for Bossy
         uses: ./action
