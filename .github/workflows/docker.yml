@@ -81,7 +81,6 @@ jobs:
       - name: Build Bossy Docker Image for test
         uses: docker/build-push-action@v3
         with:
-          context: ./
           file: ./apps/bossy/Dockerfile
           load: true
           tags: ${{ env.BOSSY_TEST_TAG }}
@@ -94,7 +93,6 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v3
         with:
-          context: ./
           file: ./apps/bossy/Dockerfile
           push: true
           tags: "{{ env.BOSSY_ECR_REGISTRY }}:latest"
