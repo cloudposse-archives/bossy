@@ -91,7 +91,7 @@ jobs:
       - name: Build Bossy Docker Image for test
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: ./
           file: ./apps/bossy/Dockerfile
           load: true
           tags: ${{ env.BOSSY_TEST_TAG }}
