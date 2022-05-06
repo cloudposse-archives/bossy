@@ -85,4 +85,4 @@ jobs:
           context: .
           file: ./apps/bossy/Dockerfile
           push: true
-          tags: ${{ env.BOSSY_ECR_REGISTRY }}:${{GITHUB_SHA}}
+          tags: ${{ env.BOSSY_ECR_REGISTRY }}:${{env.GITHUB_SHA}}
