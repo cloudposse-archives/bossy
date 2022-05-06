@@ -76,20 +76,8 @@ jobs:
         run: npx nx affected --target=build --base=$BEFORE_SHA #--base=remotes/origin/main
 
       ##################################################
-      # Build, Test and Push Bossy Docker Image
+      # Build amd Push Bossy Docker Image
       ##################################################
-      - name: Build Bossy Docker Image for test
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          file: ./apps/bossy/Dockerfile
-          load: true
-          tags: ${{ env.BOSSY_TEST_TAG }}
-
-      - name: Test Bossy Docker Image
-        run: |
-          docker run --rm ${{ env.BOSSY_TEST_TAG }}
-
       - name: Build bossy Docker image
         id: docker_build
         uses: docker/build-push-action@v3
@@ -97,4 +85,4 @@ jobs:
           context: .
           file: ./apps/bossy/Dockerfile
           push: true
-          tags: "{{ env.BOSSY_ECR_REGISTRY }}:latest"
+          tags: ${{ env.BOSSY_ECR_REGISTRY }}:${{GITHUB_SHA}}
