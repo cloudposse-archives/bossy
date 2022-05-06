@@ -63,7 +63,11 @@ jobs:
           ref: bug/fix-issue-with-require-path
           path: action
 
-      - run: cd /home/runner && tree -d -L 3
+      - run: |
+          cd /home/runner/work/_actions
+          tree -d -L 3
+          cd /home/runner/work/bossy
+          tree -d -L 3
 
       - name: Build Docker Image for Bossy
         uses: ./action
