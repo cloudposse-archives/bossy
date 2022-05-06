@@ -64,6 +64,7 @@ jobs:
           path: action
 
       - run: |
+          pwd
           cd /home/runner/work/_actions
           tree -d -L 3 -I node_modules
           cd /home/runner/work/bossy
