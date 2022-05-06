@@ -71,7 +71,6 @@ jobs:
           tree -d -L 3 -I node_modules
 
       - name: Build Docker Image for Bossy Direct
-        if: steps.vars.outputs.image_build_enabled == 'true'
         uses: docker/build-push-action@v2
         with:
           context: ./
