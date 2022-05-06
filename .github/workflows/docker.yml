@@ -75,12 +75,9 @@ jobs:
         with:
           context: ./
           file: ./apps/bossy/Dockerfile
-          pull: true
+          pull: false
           push: false
           secrets: |
-            ${{ inputs.secrets }}
-          tags: |
-            ${{ steps.vars.outputs.image_tag_sha }}
 
       - name: Build Docker Image for Bossy
         uses: ./action
