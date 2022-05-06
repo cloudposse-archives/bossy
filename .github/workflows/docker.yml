@@ -71,4 +71,4 @@ jobs:
           aws-ecr-login: "true"
           docker-registry: ${{ env.BOSSY_ECR_REGISTRY }}
           subdirectory: ${GITHUB_WORKSPACE}
-          file: ./apps/bossy/Dockerfile
+          file: ${GITHUB_WORKSPACE}/apps/bossy/Dockerfile
