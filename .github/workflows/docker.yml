@@ -92,6 +92,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
+          file: ./apps/bossy/Dockerfile
           load: true
           tags: ${{ env.BOSSY_TEST_TAG }}
 
