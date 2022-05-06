@@ -76,9 +76,9 @@ jobs:
         run: npx nx affected --target=build --base=$BEFORE_SHA #--base=remotes/origin/main
 
       ##################################################
-      # Build amd Push Bossy Docker Image
+      # Build and Push Bossy Docker Image
       ##################################################
-      - name: Build bossy Docker image
+      - name: Build bossy Docker image110
         id: docker_build
         uses: docker/build-push-action@v3
         with:
