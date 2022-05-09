@@ -78,12 +78,6 @@ jobs:
       - name: Install Dependencies
         run: yarn install --prefer-offline --frozen-lockfile
 
-      - name: Save Yarn Cache
-        uses: actions/cache@v2
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
-
       - name: Lint Affected Projects
         shell: bash
         run: npx nx affected --target=lint
