@@ -67,7 +67,7 @@ jobs:
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
 
-      - name: Cache yarn
+      - name: Restore Yarn Cache
         uses: actions/cache@v2
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -77,6 +77,12 @@ jobs:
 
       - name: Install Dependencies
         run: yarn install --prefer-offline --frozen-lockfile
+
+      - name: Save Yarn Cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
 
       - name: Lint Affected Projects
         shell: bash
