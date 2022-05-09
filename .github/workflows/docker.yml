@@ -2,9 +2,12 @@ name: "build-apps"
 on:
   push:
     branches:
-      - feature/update-workflow
+      - main
     tags:
       - "*"
+  pull_request:
+    branches:
+      - main
 
 permissions:
   id-token: write
