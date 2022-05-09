@@ -80,10 +80,18 @@ jobs:
       ##################################################
       # Build and Push Bossy Docker Image
       ##################################################
-      - name: Show Tags
-        if: startsWith(github.ref, 'refs/tags/v')
-        run: |
-          echo "${GITHUB_REF:10}"
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.BOSSY_ECR_REGISTRY }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha
 
       - name: Build bossy Docker image
         id: docker_build_tagged
@@ -93,3 +101,13 @@ jobs:
           file: apps/bossy/Dockerfile
           push: true
           tags: ${{ env.BOSSY_ECR_REGISTRY }}:${{github.sha}}
+
+      - name: Build bossy Docker image
+        id: docker_build_tagged
+        uses: docker/build-push-action@v3
+        with:
+          context: ./
+          file: apps/bossy/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
