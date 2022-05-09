@@ -5,6 +5,8 @@
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
+    "build:bossy:lambda": "nx build bossy --main apps/bossy/src/lambda.ts",
+    "build:bossy:docker": "docker build -t $BOSSY_ECR_REPO/bossy -f apps/bossy/Dockerfile .",
     "test": "nx test"
   },
   "private": true,
