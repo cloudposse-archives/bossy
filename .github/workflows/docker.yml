@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - feature/update-workflow
+    tags:
+      - "*"
 
 permissions:
   id-token: write
@@ -79,10 +81,20 @@ jobs:
       # Build and Push Bossy Docker Image
       ##################################################
       - name: Build bossy Docker image
+        id: gen_tags
+        run: |
+          if [[ $GITHUB_REF == 'refs/tags/'* ]]; then
+            TAGS='["${{ env.BOSSY_ECR_REGISTRY }}:${{github.sha}}","${{ env.BOSSY_ECR_REGISTRY }}:'${GITHUB_REF/refs\/tags\//}'"]'
+          else
+            TAGS='["${{ env.BOSSY_ECR_REGISTRY }}:${{github.sha}}"]'
+          fi
+          echo '::set-output name=tags::'$TAGS
+
+      - name: Build bossy Docker image
         id: docker_build
         uses: docker/build-push-action@v3
         with:
           context: ./
           file: apps/bossy/Dockerfile
           push: true
-          tags: ${{ env.BOSSY_ECR_REGISTRY }}:${{github.sha}}
+          tags: ${{ fromJson(steps.gen_tags.outputs.tags) }}
