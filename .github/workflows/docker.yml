@@ -81,7 +81,7 @@ jobs:
       # Build and Push Bossy Docker Image
       ##################################################
       - name: Show Tags
-        if: github.ref == 'refs/tags/*'
+        if: startsWith(github.ref, 'refs/tags/v')
         run: |
           echo "${GITHUB_REF:10}"
 
