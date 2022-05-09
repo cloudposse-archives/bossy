@@ -80,18 +80,21 @@ jobs:
       ##################################################
       # Build and Push Bossy Docker Image
       ##################################################
-      - name: Build bossy Docker image
-        id: gen_tags
+      - name: Find Tags
+        id: tagger
+        uses: jimschubert/query-tag-action@v1
+        with:
+          include: "v*"
+          exclude: "*-rc*"
+          commit-ish: "HEAD~"
+
+      - name: Show Tags
+        id: display
         run: |
-          if [[ $GITHUB_REF == 'refs/tags/'* ]]; then
-            TAGS='["${{ env.BOSSY_ECR_REGISTRY }}:${{github.sha}}","${{ env.BOSSY_ECR_REGISTRY }}:'${GITHUB_REF/refs\/tags\//}'"]'
-          else
-            TAGS='["${{ env.BOSSY_ECR_REGISTRY }}:${{github.sha}}"]'
-          fi
-          echo '::set-output name=tags::'$TAGS
+          echo 'Output from Find Tag: ${{steps.tagger.outputs.tag}}'
 
       - name: Build bossy Docker image
-        id: docker_build
+        id: docker_build_tagged
         uses: docker/build-push-action@v3
         with:
           context: ./
