@@ -97,4 +97,4 @@ jobs:
           context: ./
           file: apps/bossy/Dockerfile
           push: true
-          tags: ${{ steps.gen_tags.outputs.tags }}
+          tags: ${{ fromJSON(steps.gen_tags.outputs.tags) }}
