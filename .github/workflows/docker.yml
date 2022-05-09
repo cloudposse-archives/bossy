@@ -100,4 +100,4 @@ jobs:
           context: ./
           file: apps/bossy/Dockerfile
           push: true
-          tags: ${{ fromJSON(steps.gen_tags.outputs.tags) }}
+          tags: ${{ env.BOSSY_ECR_REGISTRY }}:${{github.sha}}
