@@ -1,4 +1,4 @@
-FROM public.ecr.aws/lambda/nodejs:14
+FROM public.ecr.aws/lambda/nodejs:16
 
 # add app
 COPY dist/apps/bossy/main.js ${LAMBDA_TASK_ROOT}
