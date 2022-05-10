@@ -8,6 +8,30 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/bossy",
+        "main": "apps/bossy/src/lambda.ts",
+        "tsConfig": "apps/bossy/tsconfig.app.json",
+        "assets": ["apps/bossy/src/assets"],
+        "generatePackageJson": true
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/bossy/src/environments/environment.ts",
+              "with": "apps/bossy/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "build:local": {
+      "executor": "@nrwl/node:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/bossy",
         "main": "apps/bossy/src/main.ts",
         "tsConfig": "apps/bossy/tsconfig.app.json",
         "assets": ["apps/bossy/src/assets"],
