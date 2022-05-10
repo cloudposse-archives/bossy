@@ -31,7 +31,7 @@
     "@nrwl/tao": "13.2.3",
     "@nrwl/workspace": "13.2.3",
     "@types/": "vendia/serverless-express",
-    "@types/config": "^0.0.40",
+    "@types/config": "0.0.41",
     "@types/express": "^4.17.13",
     "@types/jest": "27.0.3",
     "@types/node": "14",
