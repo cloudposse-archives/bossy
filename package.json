@@ -6,7 +6,7 @@
     "start": "nx serve",
     "build": "nx build",
     "build:bossy:lambda": "nx build bossy --main apps/bossy/src/lambda.ts",
-    "build:bossy:docker": "docker build -t $BOSSY_ECR_REPO/bossy -f apps/bossy/Dockerfile .",
+    "build:bossy:docker": "docker build -t bossy -f apps/bossy/Dockerfile .",
     "test": "nx test"
   },
   "private": true,
@@ -14,8 +14,8 @@
     "@slack/bolt": "3.11.0",
     "@slack/web-api": "6.7.1",
     "@vendia/serverless-express": "4.8.0",
-    "config": "3.3.7",
     "crypto": "1.0.1",
+    "dotenv": "^16.0.1",
     "express": "4.18.1",
     "helmet": "5.0.2",
     "js-yaml": "4.1.0",
@@ -44,6 +44,7 @@
     "eslint-plugin-sort-destructure-keys": "1.4.0",
     "jest": "28.1.0",
     "moq.ts": "7.3.4",
+    "node-config-webpack": "^1.0.9",
     "prettier": "2.6.2",
     "ts-jest": "28.0.2",
     "typescript": "4.6.4"

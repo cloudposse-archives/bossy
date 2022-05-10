@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require("dotenv").config();
+
 import { createLogger } from "@cloudposse/common";
 
 import { app } from "./app";
