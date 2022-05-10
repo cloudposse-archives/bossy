@@ -1,33 +1,117 @@
-name: "build-apps"
-on: push
+name: "build-and-push-docker-image"
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "*"
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
 
 env:
+  AWS_REGION: us-east-1
   BEFORE_SHA: ${{ github.event.before }}
+  BOSSY_ECR_REGISTRY: public.ecr.aws/h1u4b2i4/cloudposse/bossy
+  BOSSY_TEST_TAG: bossy:test
+  IAM_ROLE_ARN: arn:aws:iam::847349463865:role/cplive-core-ue1-public-ecr-public-github-action
+  IAM_ROLE_SEESION_NAME: cloudposse/bossy/ci
 
 jobs:
-  build:
+  build-test-distribute:
     runs-on: ubuntu-latest
     steps:
-      - name: Use Node.js 14.x
+      ##################################################
+      # Setup GHA Dependencies
+      ##################################################
+      - name: Use Node.js 16.x
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: 16.x
 
-      - uses: actions/checkout@v2
+      - name: Set up Docker Buildx (required for docker/build-push-action)
+        uses: docker/setup-buildx-action@v2
+
+      ##################################################
+      # Configure AWS
+      ##################################################
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: us-east-1
+          role-to-assume: ${{ env.IAM_ROLE_ARN }}
+          role-session-name: ${{ env.IAM_ROLE_SESSION_NAME }}
+      - name: Login to Public Amazon ECR
+        run: |
+          aws ecr-public get-login-password --region ${{ env.AWS_REGION }} | docker login --username AWS --password-stdin public.ecr.aws
+        shell: bash
+
+      ##################################################
+      # Checkout the repository
+      ##################################################
+      - name: Checkout Repository
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0
+      - name: Fetch main branch so we can compare SHA
+        run: git fetch origin main
 
-      - run: git fetch origin main
-      - run: yarn install
+      ##################################################
+      # Install App Dependencies, Build, Lint, and Test
+      ##################################################
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
 
-      - name: run nx affected lint
+      - name: Restore Yarn Cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install Dependencies
+        run: yarn install --prefer-offline --frozen-lockfile
+
+      - name: Lint Affected Projects
         shell: bash
-        run: npx nx affected --target=lint --base=$BEFORE_SHA
+        run: npx nx run-many --target=lint --all
 
-      - name: run nx affected test
+      - name: Test Affected Projects
         shell: bash
-        run: npx nx affected --target=test --base=$BEFORE_SHA
+        run: npx nx run-many --target=test --all
 
-      - name: run nx affected build
+      - name: Build Affected Projects
         shell: bash
-        run: npx nx affected --target=build --base=$BEFORE_SHA
+        run: npx nx run-many --target=build --all
+
+      ##################################################
+      # Build and Push Bossy Docker Image
+      ##################################################
+      - name: Docker Meta
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.BOSSY_ECR_REGISTRY }}
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}},enable=${{ startsWith(github.ref, 'refs/tags/') }}
+            type=semver,pattern={{major}},enable=${{ startsWith(github.ref, 'refs/tags/') }}
+            type=sha,prefix=,format=long,enable=${{ !startsWith(github.ref, 'refs/tags/') }}
+
+      - name: Build bossy Docker image
+        id: docker_build_tagged
+        uses: docker/build-push-action@v3
+        with:
+          context: ./
+          file: apps/bossy/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}

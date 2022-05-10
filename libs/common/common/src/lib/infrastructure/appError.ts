@@ -1,4 +1,4 @@
-import { createLogger } from "@cloudposse/common";
+import { createLogger } from "../logger";
 
 import { Result } from "./result";
 import { UseCaseError } from "./useCaseError";
