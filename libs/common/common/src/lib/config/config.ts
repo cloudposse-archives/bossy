@@ -23,7 +23,7 @@ class Config implements IConfig {
     this.env = process.env.NODE_ENV || "development";
 
     this.slack = {} as ISlackConfig;
-    this.slack.oAuthToken = process.env.BOSSY_OAUTH_TOKEN;
+    this.slack.oAuthToken = process.env.BOSSY_SLACK_OAUTH_TOKEN;
     this.slack.secret = process.env.BOSSY_SLACK_SECRET;
     this.slack.signingSecret = process.env.BOSSY_SLACK_SIGNING_SECRET;
 
