@@ -34,6 +34,7 @@ export class SendSpaceliftEventsToSlackUseCase
         { argument: payload.stack?.id, argumentName: "stackId" },
         { argument: payload.run?.commit?.url, argumentName: "commitUrl" },
       ]);
+
       if (validateRequiredParamsOrError.isFailure) {
         return left(validateRequiredParamsOrError);
       }
