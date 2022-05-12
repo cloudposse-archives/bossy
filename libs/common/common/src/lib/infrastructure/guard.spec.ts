@@ -10,32 +10,32 @@ describe("guard", () => {
     result = null;
   });
 
-  describe("against null or undefined", () => {
-    it("knows that value provided equates to success", () => {
+  describe("againstNullOrUndefined", () => {
+    it("succeeds with true", () => {
       result = Guard.againstNullOrUndefined(true, argName);
       expect(result.isSuccess).toBeTruthy();
     });
 
-    it("knows that null value equates to failure", () => {
+    it("fails with null", () => {
       result = Guard.againstNullOrUndefined(null, argName);
       expect(result.isSuccess).toBeFalsy();
       expect(result.getErrorValue()).toEqual(`${argName} is null or undefined`);
     });
 
-    it("knows that undefined value equates to failure", () => {
+    it("fails with undefined", () => {
       result = Guard.againstNullOrUndefined(undefined, argName);
       expect(result.isSuccess).toBeFalsy();
       expect(result.getErrorValue()).toEqual(`${argName} is null or undefined`);
     });
 
-    it("knows that empty string still equates to success", () => {
+    it("succeeds with empty string", () => {
       result = Guard.againstNullOrUndefined("", argName);
       expect(result.isSuccess).toBeTruthy();
     });
   });
 
-  describe("against null or undefined bulk", () => {
-    it("knows that values provided equates to success", () => {
+  describe("againstNullOrUndefinedBulk", () => {
+    it("succeeds with valid values", () => {
       result = Guard.againstNullOrUndefinedBulk([
         { argumentName: argName, argument: true },
         { argumentName: secondArgName, argument: 15 },
@@ -43,7 +43,7 @@ describe("guard", () => {
       expect(result.isSuccess).toBeTruthy();
     });
 
-    it("knows that a single null value equates to failure", () => {
+    it("fails with a single null value", () => {
       result = Guard.againstNullOrUndefinedBulk([
         { argumentName: argName, argument: null },
         { argumentName: secondArgName, argument: 8 },
@@ -53,7 +53,7 @@ describe("guard", () => {
       expect(result.getErrorValue()).toEqual(`${argName} is null or undefined`);
     });
 
-    it("knows that a single undefined value equates to failure", () => {
+    it("fails with a single undefined value", () => {
       result = Guard.againstNullOrUndefinedBulk([
         { argumentName: argName, argument: undefined },
         { argumentName: secondArgName, argument: 98 },
