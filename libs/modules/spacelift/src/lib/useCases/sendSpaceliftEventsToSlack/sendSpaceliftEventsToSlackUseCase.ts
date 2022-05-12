@@ -62,6 +62,7 @@ export class SendSpaceliftEventsToSlackUseCase
 
       return right(Result.ok<void>());
     } catch (err) {
+      //console.log(err.stack);
       return left(new AppError.UnexpectedError(err));
     }
   }
