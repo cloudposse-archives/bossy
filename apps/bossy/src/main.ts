@@ -1,5 +1,6 @@
+const config = process.env.NODE_ENV === "test" ? { path: `./.env.test` } : {};
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-require("dotenv").config();
+require("dotenv").config(config);
 
 import { getLogger } from "@cloudposse/common";
 
