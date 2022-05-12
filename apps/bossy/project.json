@@ -19,6 +19,7 @@
           "extractLicenses": true,
           "inspect": false,
           "main": "apps/bossy/src/lambda.ts",
+          
           "fileReplacements": [
             {
               "replace": "apps/bossy/src/environments/environment.ts",
