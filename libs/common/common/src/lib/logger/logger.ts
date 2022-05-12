@@ -1,31 +1,23 @@
-import winston, { format, Logger, transports } from "winston";
+import { createLogger, format, Logger, transports } from "winston";
 
 import { config } from "../config";
 
-const enumerateErrorFormat = winston.format((info) => {
-  if (info instanceof Error) {
-    Object.assign(info, { message: info.stack });
-  }
-  return info;
+const { combine, printf, timestamp } = format;
+
+const bossyFormat = printf((info) => {
+  return `[${info.timestamp}] ${info.service} [${info.level}]:  ${
+    info?.stack ?? info.message
+  }`;
 });
 
-const createLogger = (loggerName: string): Logger =>
-  winston.createLogger({
-    level: config.env === "development" ? "debug" : "info",
-    format: format.combine(
-      enumerateErrorFormat(),
-      config.env === "development" ? format.colorize() : format.uncolorize(),
-      format.timestamp(),
-      format.printf(
-        ({ level, message, timestamp }) =>
-          `${timestamp} ${loggerName} [${level}]  - ${message}`
-      )
-    ),
-    transports: [
-      new transports.Console({
-        stderrLevels: ["error"],
-      }),
-    ],
+const getLogger = (service: string): Logger =>
+  createLogger({
+    transports: [new transports.Console()],
+    level: config.loggingLevel,
+    format: combine(timestamp(), bossyFormat),
+    defaultMeta: {
+      service,
+    },
   });
 
-export { createLogger };
+export { getLogger };

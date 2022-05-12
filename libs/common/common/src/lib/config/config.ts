@@ -1,7 +1,7 @@
-import nodeConfig from "config";
-
+type LoggingLevels = "debug" | "info" | "warn" | "error";
 interface IConfig {
   env: string;
+  loggingLevel: LoggingLevels;
   slack: ISlackConfig;
 }
 
@@ -18,21 +18,23 @@ interface ISpacelliftToSlackConfig {
 class Config implements IConfig {
   private static instance: Config;
   env: string;
+  loggingLevel: LoggingLevels;
   slack: ISlackConfig;
   spacelliftToSlackConfig: ISpacelliftToSlackConfig;
 
   private constructor() {
-    this.env = nodeConfig.get<string>("env");
+    this.env = process.env.NODE_ENV || "development";
+    this.loggingLevel =
+      (process.env.BOSSY_LOGGING_LEVEL as LoggingLevels) || "debug";
 
     this.slack = {} as ISlackConfig;
-    this.slack.oAuthToken = nodeConfig.get<string>("slack.oauth_token");
-    this.slack.secret = nodeConfig.get<string>("slack.secret");
-    this.slack.signingSecret = nodeConfig.get<string>("slack.signing_secret");
+    this.slack.oAuthToken = process.env.BOSSY_SLACK_OAUTH_TOKEN;
+    this.slack.secret = process.env.BOSSY_SLACK_SECRET;
+    this.slack.signingSecret = process.env.BOSSY_SLACK_SIGNING_SECRET;
 
     this.spacelliftToSlackConfig = {} as ISpacelliftToSlackConfig;
-    this.spacelliftToSlackConfig.slackChannel = nodeConfig.get<string>(
-      "spaceliftToSlack.slack_channel"
-    );
+    this.spacelliftToSlackConfig.slackChannel =
+      process.env.BOSSY_SPACELIFT_TO_SLACK_CHANNEL;
   }
 
   public static getInstance(): Config {
