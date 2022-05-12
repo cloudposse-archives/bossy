@@ -22,7 +22,6 @@ class SendSpaceliftEventsToSlackController {
       const spaceliftSignature = headers["x-spacelift-signature"]?.toString();
       const slackChannel = config.spacelliftToSlackConfig.slackChannel;
 
-      console.log(req.body);
       const dto: SendSpaceliftEventsToSlackDTO = {
         spaceliftSignature,
         slackChannel,
