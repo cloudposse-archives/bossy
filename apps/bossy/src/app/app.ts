@@ -7,6 +7,11 @@ process.env["NODE_CONFIG_DIR"] = process.cwd() + "/config/";
 const app = express();
 
 app.use(helmet());
+app.use((req, _res, next) => {
+  req.headers["content-type"] =
+    req.headers["content-type"] || "application/json";
+  next();
+});
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
