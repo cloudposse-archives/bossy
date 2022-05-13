@@ -28,6 +28,8 @@ class SendSpaceliftEventsToSlackController {
         webEvent: body,
       };
 
+      logger.debug(`executing use case with: ${JSON.stringify(dto)}`);
+
       const result = await this.useCase.execute(dto);
 
       if (result.isLeft()) {
