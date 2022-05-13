@@ -34,6 +34,10 @@ class SendSpaceliftEventsToSlackController {
 
       if (result.isLeft()) {
         const error = result.value;
+        logger.error(
+          "an error occurred while processing the webhook event",
+          error
+        );
 
         switch (error.constructor) {
           default:
