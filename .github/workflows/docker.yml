@@ -109,10 +109,7 @@ jobs:
       - name: install Bossy Lambda Dependencies
         run: cd dist/apps/bossy && yarn install
         shell: bash
-      - name: Create Lambda Zip
-        run: |
-          cd dist/apps/bossy && zip -r ../../../lambda.zip .
       - uses: actions/upload-artifact@v3
         with:
           name: lambda.zip
-          path: lambda.zip
+          path: dist/apps/bossy/*
