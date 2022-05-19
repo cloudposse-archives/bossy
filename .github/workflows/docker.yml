@@ -111,7 +111,7 @@ jobs:
         shell: bash
       - name: Create Lambda Zip
         run: |
-          zip -r lambda.zip dist/apps/bossy/.
+          cd dist/apps/bossy && zip -r ../../../lambda.zip .
       - uses: actions/upload-artifact@v3
         with:
           name: lambda.zip
