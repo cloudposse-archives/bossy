@@ -111,11 +111,7 @@ jobs:
         shell: bash
       - name: Create Lambda Zip
         run: |
-          zip lambda.zip dist/apps/bossy/3rdpartylicenses.txt 
-          zip lambda.zip dist/apps/bossy/main.js 
-          zip lambda.zip dist/apps/bossy/main.js.LICENSE.txt
-          zip lambda.zip dist/apps/bossy/main.js.map dist/app/bossy/package.json
-          zip -r lambda.zip dist/apps/bossy/node_modules
+          zip -r lambda.zip dist/apps/bossy/.
       - uses: actions/upload-artifact@v3
         with:
           name: lambda.zip
