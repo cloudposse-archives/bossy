@@ -107,7 +107,7 @@ jobs:
       # Build and Upload Bossy Lambda Zip
       ##################################################
       - name: install Bossy Lambda Dependencies
-        run: cd dist/apps/bossy && yarn install --prefer-offline
+        run: cd dist/apps/bossy && yarn install
         shell: bash
       - name: Create Lambda Zip
         run: |
