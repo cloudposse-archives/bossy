@@ -50,9 +50,4 @@ Thumbs.db
 *.tfstate.*
 .terraform
 .terraform.tfstate.lock.info
-<<<<<<< HEAD
 .env
-=======
-
-.env
->>>>>>> fccfcb3 (bug(build): fix docker base image (#27))
