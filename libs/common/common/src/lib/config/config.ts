@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 type LoggingLevels = "debug" | "info" | "warn" | "error";
-=======
->>>>>>> fccfcb3 (bug(build): fix docker base image (#27))
 interface IConfig {
   env: string;
   loggingLevel: LoggingLevels;
@@ -27,11 +24,8 @@ class Config implements IConfig {
 
   private constructor() {
     this.env = process.env.NODE_ENV || "development";
-<<<<<<< HEAD
     this.loggingLevel =
       (process.env.BOSSY_LOGGING_LEVEL as LoggingLevels) || "debug";
-=======
->>>>>>> fccfcb3 (bug(build): fix docker base image (#27))
 
     this.slack = {} as ISlackConfig;
     this.slack.oAuthToken = process.env.BOSSY_SLACK_OAUTH_TOKEN;

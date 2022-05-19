@@ -4,12 +4,9 @@
     "outDir": "../../dist/out-tsc",
     "module": "commonjs",
     "types": ["node", "express"],
-<<<<<<< HEAD
-    "importHelpers": false
-=======
+    "importHelpers": false,
     "target": "es2017",
     "lib": ["es2021"]
->>>>>>> fccfcb3 (bug(build): fix docker base image (#27))
   },
   "exclude": ["**/*.spec.ts", "**/*.test.ts"],
   "include": ["**/*.ts"]
