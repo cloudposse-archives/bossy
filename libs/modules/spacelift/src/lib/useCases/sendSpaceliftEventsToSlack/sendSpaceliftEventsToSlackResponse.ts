@@ -6,6 +6,7 @@ export type SendSpaceliftEventsToSlackResponse = Either<
   | SendSpaceliftEventsToSlackErrors.InvalidSpaceliftSignatureError
   | SendSpaceliftEventsToSlackErrors.SlackApiError
   | AppError.UnexpectedError
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   | Result<any>,
   Result<void>
 >;

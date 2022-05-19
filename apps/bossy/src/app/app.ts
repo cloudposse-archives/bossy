@@ -5,7 +5,15 @@ import helmet from "helmet";
 const app = express();
 
 app.use(helmet());
-app.use(express.json());
+app.use(
+  express.json({
+    inflate: true,
+    strict: false,
+    type: () => {
+      return true;
+    },
+  })
+);
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/test", async (req, res) => {

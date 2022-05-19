@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export class Result<T> {
   public isSuccess: boolean;
   public isFailure: boolean;
-  public error: T | string;
+  private error: T | string;
   private _value: T;
 
   public constructor(isSuccess: boolean, error?: T | string, value?: T) {
@@ -28,14 +27,14 @@ export class Result<T> {
   public getValue(): T {
     if (!this.isSuccess) {
       throw new Error(
-        "Can't get the value of an error result. Use 'errorValue' instead."
+        "Can't get the value of an error result. Use 'getErrorValue' instead."
       );
     }
 
     return this._value;
   }
 
-  public errorValue(): T {
+  public getErrorValue(): T {
     return this.error as T;
   }
 
@@ -47,6 +46,7 @@ export class Result<T> {
     return new Result<U>(false, error);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public static combine(results: Result<any>[]): Result<any> {
     for (const result of results) {
       if (result.isFailure) return result;

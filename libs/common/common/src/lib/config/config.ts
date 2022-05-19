@@ -1,5 +1,7 @@
+type LoggingLevels = "debug" | "info" | "warn" | "error";
 interface IConfig {
   env: string;
+  loggingLevel: LoggingLevels;
   slack: ISlackConfig;
 }
 
@@ -16,11 +18,14 @@ interface ISpacelliftToSlackConfig {
 class Config implements IConfig {
   private static instance: Config;
   env: string;
+  loggingLevel: LoggingLevels;
   slack: ISlackConfig;
   spacelliftToSlackConfig: ISpacelliftToSlackConfig;
 
   private constructor() {
     this.env = process.env.NODE_ENV || "development";
+    this.loggingLevel =
+      (process.env.BOSSY_LOGGING_LEVEL as LoggingLevels) || "debug";
 
     this.slack = {} as ISlackConfig;
     this.slack.oAuthToken = process.env.BOSSY_SLACK_OAUTH_TOKEN;

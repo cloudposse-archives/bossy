@@ -1,5 +1,6 @@
 import {
   AppError,
+  Guard,
   left,
   Result,
   right,
@@ -27,7 +28,18 @@ export class SendSpaceliftEventsToSlackUseCase
     req: SendSpaceliftEventsToSlackDTO
   ): Promise<SendSpaceliftEventsToSlackResponse> {
     try {
-      const message = generateSlackMessage(req.webEvent);
+      const payload = req.webEvent;
+      const validateRequiredParamsOrError = Guard.againstNullOrUndefinedBulk([
+        { argument: payload.run?.triggeredBy, argumentName: "triggeredBy" },
+        { argument: payload.stack?.id, argumentName: "stackId" },
+        { argument: payload.run?.commit?.url, argumentName: "commitUrl" },
+      ]);
+
+      if (validateRequiredParamsOrError.isFailure) {
+        return left(validateRequiredParamsOrError);
+      }
+
+      const message = generateSlackMessage(payload);
 
       try {
         const result = await this.slackApp.sendMessage(
@@ -35,6 +47,7 @@ export class SendSpaceliftEventsToSlackUseCase
           message.text,
           message.blocks
         );
+
         if (!result.ok) {
           return left(
             new SendSpaceliftEventsToSlackErrors.SlackApiError(result.error)

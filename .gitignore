@@ -50,5 +50,4 @@ Thumbs.db
 *.tfstate.*
 .terraform
 .terraform.tfstate.lock.info
-
 .env
