@@ -2252,7 +2252,7 @@ concat-map@0.0.1:
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
   integrity sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=
 
-config@3.3.7:
+config@3.3.7, config@^3.3.6:
   version "3.3.7"
   resolved "https://registry.yarnpkg.com/config/-/config-3.3.7.tgz#4310410dc2bf4e0effdca21a12a4035860a24ee4"
   integrity sha512-mX/n7GKDYZMqvvkY6e6oBY49W8wxdmQt+ho/5lhwFDXqQW9gI+Ahp8EKp8VAbISPnmf2+Bv5uZK7lKXZ6pf1aA==
@@ -2478,21 +2478,27 @@ domexception@^2.0.1:
   dependencies:
     webidl-conversions "^5.0.0"
 
+<<<<<<< HEAD
 dotenv-json@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/dotenv-json/-/dotenv-json-1.0.0.tgz#fc7f672aafea04bed33818733b9f94662332815c"
   integrity sha512-jAssr+6r4nKhKRudQ0HOzMskOFFi9+ubXWwmrSGJFgTvpjyPXCXsCsYbjif6mXp7uxA7xY3/LGaiTQukZzSbOQ==
 
+=======
+>>>>>>> fccfcb3 (bug(build): fix docker base image (#27))
 dotenv@^16.0.1:
   version "16.0.1"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.0.1.tgz#8f8f9d94876c35dac989876a5d3a82a267fdce1d"
   integrity sha512-1K6hR6wtk2FviQ4kEiSjFiH5rpzEVi8WW0x96aztHVMhEspNpc4DVOUTEHtEva5VThQ8IaBX1Pe4gSzpVVUsKQ==
 
+<<<<<<< HEAD
 dotenv@^8.0.0:
   version "8.6.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.6.0.tgz#061af664d19f7f4d8fc6e4ff9b584ce237adcb8b"
   integrity sha512-IrPdXQsk2BbzvCBGBOTmmSH5SodmqZNt4ERAZDmW4CT+tL8VtvinqywuANaFu4bOMWki16nqf0e4oC0QIaDr/g==
 
+=======
+>>>>>>> fccfcb3 (bug(build): fix docker base image (#27))
 dotenv@~10.0.0:
   version "10.0.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-10.0.0.tgz#3d4227b8fb95f81096cdd2b66653fb2c7085ba81"
@@ -4890,6 +4896,14 @@ node-addon-api@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/node-addon-api/-/node-addon-api-3.2.1.tgz#81325e0a2117789c0128dab65e7e38f07ceba161"
   integrity sha512-mmcei9JghVNDYydghQmeDX8KoAm0FAiYyIcUt/N4nhyAipB17pllZQDOJD2fotxABnt4Mdz+dKTO7eftLg4d0A==
+
+node-config-webpack@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/node-config-webpack/-/node-config-webpack-1.0.9.tgz#f7f8d22518577cfbfc9b8c2343bd24a420750528"
+  integrity sha512-8D9MIcRDUnav7r1Z0IPUrIyVFN9IVGrv25SUATZKq9eyIlKfrvelMxVVNbUaIUBT6smw3DchFFYaNRFZ/hkaoQ==
+  dependencies:
+    config "^3.3.6"
+    js-yaml "^4.1.0"
 
 node-gyp-build@^4.3.0:
   version "4.4.0"

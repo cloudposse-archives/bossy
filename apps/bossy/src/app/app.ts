@@ -2,8 +2,6 @@ import { sendSpaceliftEventsToSlackRouter } from "@cloudposse/modules/spacelift"
 import express from "express";
 import helmet from "helmet";
 
-process.env["NODE_CONFIG_DIR"] = process.cwd() + "/config/";
-
 const app = express();
 
 app.use(helmet());
