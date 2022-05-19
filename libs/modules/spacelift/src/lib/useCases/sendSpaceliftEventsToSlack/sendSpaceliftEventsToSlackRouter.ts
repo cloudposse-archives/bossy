@@ -4,8 +4,10 @@ import { sendSpaceliftEventsToSlackController } from "./sendSpaceliftEventsToSla
 
 const sendSpaceliftEventsToSlackRouter = Router();
 
-sendSpaceliftEventsToSlackRouter.post("/", async (req, res) =>
-  sendSpaceliftEventsToSlackController.handle(req, res)
+sendSpaceliftEventsToSlackRouter.post(
+  "/",
+  async (req, res) =>
+    await sendSpaceliftEventsToSlackController.handle(req, res)
 );
 
 export { sendSpaceliftEventsToSlackRouter };

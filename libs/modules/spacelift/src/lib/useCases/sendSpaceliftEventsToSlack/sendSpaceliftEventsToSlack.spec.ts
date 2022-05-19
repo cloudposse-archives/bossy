@@ -49,7 +49,7 @@ describe("sendSpaceliftEventsToSlack", () => {
       const result = await useCase.execute(payload);
 
       expect(result.value.isFailure).toBeTruthy();
-      expect(result.value.errorValue().message).toBe(
+      expect(result.value.getErrorValue().message).toBe(
         `An error occurred when calling the Slack API: ${errorText}.`
       );
     });

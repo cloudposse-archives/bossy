@@ -1,4 +1,4 @@
-import { config, expressHelpers } from "@cloudposse/common";
+import { config, expressHelpers, getLogger } from "@cloudposse/common";
 import { SlackApp, slackInstance } from "@cloudposse/slack";
 import { Request, Response } from "express";
 
@@ -16,6 +16,7 @@ class SendSpaceliftEventsToSlackController {
     res: Response
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): Promise<any> {
+    const logger = getLogger("SendSpaceliftEventsToSlackController");
     try {
       const { body, headers } = req;
       const spaceliftSignature = headers["x-spacelift-signature"]?.toString();
@@ -27,21 +28,26 @@ class SendSpaceliftEventsToSlackController {
         webEvent: body,
       };
 
+      logger.debug(`executing use case with: ${JSON.stringify(dto)}`);
+
       const result = await this.useCase.execute(dto);
 
       if (result.isLeft()) {
         const error = result.value;
+        logger.error(
+          "an error occurred while processing the webhook event",
+          error
+        );
 
         switch (error.constructor) {
           default:
-            console.log(error);
-            return expressHelpers.fail(res, error.errorValue().message);
+            return expressHelpers.fail(res, error.getErrorValue());
         }
       } else {
         return expressHelpers.ok(res);
       }
     } catch (err) {
-      console.log(err);
+      logger.error(err);
       return expressHelpers.fail(res, err);
     }
   }
