@@ -11,10 +11,12 @@
         "main": "apps/bossy/src/main.ts",
         "tsConfig": "apps/bossy/tsconfig.app.json",
         "assets": ["apps/bossy/src/assets"],
-        "generatePackageJson": true
+        "generatePackageJson": true,
+        "externalDependencies": "none"
       },
       "configurations": {
         "production": {
+          "main": "apps/bossy/src/lambda.ts",
           "optimization": true,
           "extractLicenses": true,
           "inspect": false,
