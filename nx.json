@@ -11,6 +11,11 @@
       "dependencies": "*",
       "devDependencies": "*"
     },
+    "bossy": {
+      "implicitDependencies": {
+        "js-yaml": "*"
+      }
+    },
     ".eslintrc.json": "*"
   },
   "tasksRunnerOptions": {
