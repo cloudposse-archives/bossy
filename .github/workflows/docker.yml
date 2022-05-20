@@ -38,8 +38,7 @@ jobs:
         uses: docker/setup-buildx-action@v2
       - name: Install Zip
         run: |
-          apt-get update
-          apt-get install zip unzip
+          which zip || sudo apt-get install zip
 
       ##################################################
       # Configure AWS
