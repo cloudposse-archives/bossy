@@ -4853,10 +4853,10 @@ minimist@^1.2.0, minimist@^1.2.6:
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.6.tgz#8637a5b759ea0d6e98702cfb3a9283323c93af44"
   integrity sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q==
 
-moq.ts@7.3.4:
-  version "7.3.4"
-  resolved "https://registry.yarnpkg.com/moq.ts/-/moq.ts-7.3.4.tgz#982c3b195a54fd58c7a40a84e37a870374d15927"
-  integrity sha512-rOelPx7ns+RzyliPwHH2wFVqGowITKRQtECLvVKhiIt4oM4r2hYq4AmgQh0NpWlMxWl2fuZtPJhikrhVpAoF5g==
+moq.ts@7.4.1:
+  version "7.4.1"
+  resolved "https://registry.yarnpkg.com/moq.ts/-/moq.ts-7.4.1.tgz#1bb7e808324dc5b0143fa8b1a94f539203d475cb"
+  integrity sha512-P97MjGUkkMKQrAHbNScyJvSv3S7pMxnuxd3HgaOrPuoC6okwPqru3ZX8W/mTdU7Ms74622MeeWHqoDaGyYKonw==
   dependencies:
     tslib "2.1.0"
 

@@ -45,7 +45,7 @@
     "eslint-plugin-sort-destructure-keys": "1.4.0",
     "jest": "28.1.0",
     "lambda-tester": "4.0.1",
-    "moq.ts": "7.3.4",
+    "moq.ts": "7.4.1",
     "node-config-webpack": "1.0.9",
     "prettier": "2.6.2",
     "ts-jest": "28.0.2",
