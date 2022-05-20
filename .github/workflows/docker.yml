@@ -18,8 +18,10 @@ env:
   BEFORE_SHA: ${{ github.event.before }}
   BOSSY_ECR_REGISTRY: public.ecr.aws/h1u4b2i4/cloudposse/bossy
   BOSSY_TEST_TAG: bossy:test
-  IAM_ROLE_ARN: arn:aws:iam::847349463865:role/cplive-core-ue1-public-ecr-public-github-action
+  IAM_ROLE_ARN_ECR: arn:aws:iam::847349463865:role/cplive-core-ue1-public-ecr-public-github-action
+  IAM_ROLE_ARN_S3: arn:aws:iam::847349463865:role/cplive-core-ue2-public-bossy-artifacts-github-action
   IAM_ROLE_SEESION_NAME: cloudposse/bossy/ci
+  S3_BUCKET: cplive-core-ue2-public-bossy-artifacts
 
 jobs:
   build-test-distribute:
@@ -43,7 +45,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: us-east-1
-          role-to-assume: ${{ env.IAM_ROLE_ARN }}
+          role-to-assume: ${{ env.IAM_ROLE_ARN_ECR }}
           role-session-name: ${{ env.IAM_ROLE_SESSION_NAME }}
       - name: Login to Public Amazon ECR
         run: |
@@ -113,3 +115,16 @@ jobs:
         with:
           name: lambda.zip
           path: dist/apps/bossy/*
+      - uses: actions/download-artifact@v3
+        with:
+          path: .
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: us-east-2
+          role-to-assume: ${{ env.IAM_ROLE_ARN_S3 }}
+          role-session-name: ${{ env.IAM_ROLE_SESSION_NAME }}
+      - name: Copy Lambda to S3
+        run: |
+          aws s3 cp ./lambda.zip s3://${{env.S3_BUCKET}}/bossy/ --region ${{ env.AWS_REGION }}
+        shell: bash
