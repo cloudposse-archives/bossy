@@ -117,9 +117,11 @@ jobs:
         shell: bash
       - name: Create Zip File
         run: |
+          VERSION=${{ steps.meta.outputs.tags.version }}
+          FILE_NAME=lambda-bossy-${VERSION}.zip
           cd dist/apps/bossy || exit 1
-          zip -r lambda.zip .
-          mv ./lambda.zip $GITHUB_WORKSPACE/lambda.zip
+          zip -r $FILE_NAME .
+          mv ./$FILE_NAME $GITHUB_WORKSPACE/$FILE_NAME
         shell: bash
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
