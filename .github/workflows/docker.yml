@@ -123,8 +123,8 @@ jobs:
       - name: Create Zip File
         run: |
           cd dist/apps/bossy || exit 1
-          zip -r ${env.FILE_NAME} .
-          mv ./${env.FILE_NAME} $GITHUB_WORKSPACE/${env.FILE_NAME}
+          zip -r "$FILE_NAME" .
+          mv "./$FILE_NAME" "$GITHUB_WORKSPACE/$FILE_NAME"
         shell: bash
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -134,5 +134,5 @@ jobs:
           role-session-name: ${{ env.IAM_ROLE_SESSION_NAME }}
       - name: Copy Lambda to S3
         run: |
-          aws s3 cp ./${env.FILE_NAME} s3://${{env.S3_BUCKET}}/bossy/ --sse AES256 --region ${{ env.AWS_REGION }}
+          aws s3 cp "./$FILE_NAME" s3://${{env.S3_BUCKET}}/bossy/ --sse AES256 --region ${{ env.AWS_REGION }}
         shell: bash
