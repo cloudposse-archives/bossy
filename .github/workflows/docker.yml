@@ -134,5 +134,5 @@ jobs:
           role-session-name: ${{ env.IAM_ROLE_SESSION_NAME }}
       - name: Copy Lambda to S3
         run: |
-          aws s3 cp ./lambda.zip s3://${{env.S3_BUCKET}}/bossy/ --region ${{ env.AWS_REGION }}
+          aws s3 cp ./lambda.zip s3://${{env.S3_BUCKET}}/bossy/ --sse AES256 -region ${{ env.AWS_REGION }}
         shell: bash
