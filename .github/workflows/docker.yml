@@ -118,7 +118,7 @@ jobs:
       - name: Create Zip File
         run: |
           cd dist/apps/bossy && \ 
-          zip -r lambda.zip . && \
+          /usr/bin/zip -r lambda.zip . && \
           mv ./lambda.zip $GITHUB_WORKSPACE/lambda.zip
         shell: bash
       - name: Configure AWS Credentials
