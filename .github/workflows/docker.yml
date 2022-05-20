@@ -109,15 +109,16 @@ jobs:
       # Build and Upload Bossy Lambda Zip
       ##################################################
       - name: install Bossy Lambda Dependencies
-        run: cd dist/apps/bossy && yarn install
+        run: |
+          cd dist/apps/bossy && \
+          yarn install
         shell: bash
-      - uses: actions/upload-artifact@v3
-        with:
-          name: lambda.zip
-          path: dist/apps/bossy/*
-      - uses: actions/download-artifact@v3
-        with:
-          path: .
+      - name: Create Zip File
+        run: |
+          cd dist/apps/bossy && \ 
+          zip -r lambda.zip . && \
+          mv ./lambda.zip $GITHUB_WORKSPACE/lambda.zip
+        shell: bash
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
