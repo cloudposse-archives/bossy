@@ -117,7 +117,7 @@ jobs:
         shell: bash
       - name: Create Zip File
         run: |
-          VERSION=$(echo ${{ steps.meta.outputs.labels }}|jq -r '.labels["org.opencontainers.image.version"]')
+          VERSION=$(echo '${{ steps.meta.outputs.labels }}'|jq -r '.labels["org.opencontainers.image.version"]')
           FILE_NAME=lambda-bossy-${VERSION}.zip
           cd dist/apps/bossy || exit 1
           zip -r $FILE_NAME .
