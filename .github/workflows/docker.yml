@@ -38,7 +38,7 @@ jobs:
         uses: docker/setup-buildx-action@v2
       - name: Install Zip
         run: |
-          which zip || sudo apt-get install zip
+          sudo apt-get install -y zip
 
       ##################################################
       # Configure AWS
@@ -115,17 +115,12 @@ jobs:
           cd dist/apps/bossy || exit 1
           yarn install
         shell: bash
-      # - name: Create Zip File
-      #   run: |
-      #     cd dist/apps/bossy || exit 1
-      #     zip -r lambda.zip .
-      #     mv ./lambda.zip $GITHUB_WORKSPACE/lambda.zip
-      #   shell: bash
-      - uses: papeloto/action-zip@v1
-        with:
-          files: dist/apps/bossy/. dist/apps/bossy/node_modules
-          recursive: false
-          dest: lambda.zip
+      - name: Create Zip File
+        run: |
+          cd dist/apps/bossy || exit 1
+          zip -r lambda.zip .
+          mv ./lambda.zip $GITHUB_WORKSPACE/lambda.zip
+        shell: bash
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
