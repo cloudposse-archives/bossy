@@ -34,7 +34,7 @@
     "@types/": "vendia/serverless-express",
     "@types/config": "0.0.41",
     "@types/express": "4.17.13",
-    "@types/jest": "27.5.0",
+    "@types/jest": "27.5.1",
     "@types/node": "16.11.36",
     "@types/winston": "2.4.4",
     "@typescript-eslint/eslint-plugin": "5.25.0",
