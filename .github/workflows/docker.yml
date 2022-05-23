@@ -18,8 +18,10 @@ env:
   BEFORE_SHA: ${{ github.event.before }}
   BOSSY_ECR_REGISTRY: public.ecr.aws/h1u4b2i4/cloudposse/bossy
   BOSSY_TEST_TAG: bossy:test
-  IAM_ROLE_ARN: arn:aws:iam::847349463865:role/cplive-core-ue1-public-ecr-public-github-action
+  IAM_ROLE_ARN_ECR: arn:aws:iam::847349463865:role/cplive-core-ue1-public-ecr-public-github-action
+  IAM_ROLE_ARN_S3: arn:aws:iam::847349463865:role/cplive-core-ue2-public-bossy-artifacts-github-action
   IAM_ROLE_SEESION_NAME: cloudposse/bossy/ci
+  S3_BUCKET: cplive-core-ue2-public-bossy-artifacts
 
 jobs:
   build-test-distribute:
@@ -32,9 +34,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-
       - name: Set up Docker Buildx (required for docker/build-push-action)
         uses: docker/setup-buildx-action@v2
+      - name: Install Zip
+        run: |
+          sudo apt-get install -y zip
 
       ##################################################
       # Configure AWS
@@ -43,7 +47,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: us-east-1
-          role-to-assume: ${{ env.IAM_ROLE_ARN }}
+          role-to-assume: ${{ env.IAM_ROLE_ARN_ECR }}
           role-session-name: ${{ env.IAM_ROLE_SESSION_NAME }}
       - name: Login to Public Amazon ECR
         run: |
@@ -63,20 +67,8 @@ jobs:
       ##################################################
       # Install App Dependencies, Build, Lint, and Test
       ##################################################
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-
-      - name: Restore Yarn Cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-
       - name: Install Dependencies
-        run: yarn install --prefer-offline --frozen-lockfile
+        run: yarn install --frozen-lockfile
 
       - name: Lint Affected Projects
         shell: bash
@@ -105,7 +97,6 @@ jobs:
             type=semver,pattern={{major}}.{{minor}},enable=${{ startsWith(github.ref, 'refs/tags/') }}
             type=semver,pattern={{major}},enable=${{ startsWith(github.ref, 'refs/tags/') }}
             type=sha,prefix=,format=long,enable=${{ !startsWith(github.ref, 'refs/tags/') }}
-
       - name: Build bossy Docker image
         id: docker_build_tagged
         uses: docker/build-push-action@v3
@@ -115,3 +106,33 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      ##################################################
+      # Build and Upload Bossy Lambda Zip
+      ##################################################
+      - name: install Bossy Lambda Dependencies
+        run: |
+          cd dist/apps/bossy || exit 1
+          yarn install
+        shell: bash
+      - name: Set ZIP File Name Var
+        run: |
+          VERSION=${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}
+          echo "FILE_NAME=lambda-bossy-${VERSION}.zip" >> $GITHUB_ENV
+        shell: bash
+      - name: Create Zip File
+        run: |
+          cd dist/apps/bossy || exit 1
+          zip -r "$FILE_NAME" .
+          mv "./$FILE_NAME" "$GITHUB_WORKSPACE/$FILE_NAME"
+        shell: bash
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: us-east-2
+          role-to-assume: ${{ env.IAM_ROLE_ARN_S3 }}
+          role-session-name: ${{ env.IAM_ROLE_SESSION_NAME }}
+      - name: Copy Lambda to S3
+        run: |
+          aws s3 cp "./$FILE_NAME" s3://${{env.S3_BUCKET}}/bossy/ --sse AES256 --region ${{ env.AWS_REGION }}
+        shell: bash
