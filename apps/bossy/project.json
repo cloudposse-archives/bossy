@@ -12,7 +12,8 @@
         "tsConfig": "apps/bossy/tsconfig.app.json",
         "assets": ["apps/bossy/src/assets"],
         "generatePackageJson": true,
-        "externalDependencies": "none"
+        "externalDependencies": "none",
+        "webpackConfig": "apps/bossy/custom-webpack.config.js"
       },
       "configurations": {
         "production": {
@@ -20,8 +21,7 @@
           "optimization": true,
           "extractLicenses": true,
           "inspect": false,
-          "main": "apps/bossy/src/lambda.ts",
-          
+
           "fileReplacements": [
             {
               "replace": "apps/bossy/src/environments/environment.ts",
