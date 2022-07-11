@@ -19,7 +19,7 @@ env:
   BOSSY_ECR_REGISTRY: public.ecr.aws/h1u4b2i4/cloudposse/bossy
   BOSSY_TEST_TAG: bossy:test
   IAM_ROLE_ARN_ECR: arn:aws:iam::847349463865:role/cplive-core-ue1-public-ecr-public-github-action
-  IAM_ROLE_ARN_S3: arn:aws:iam::847349463865:role/cplive-core-ue2-public-bossy-artifacts-github-action
+  IAM_ROLE_ARN_S3: arn:aws:iam::847349463865:role/cplive-core-ue2-public-lambda-artifacts-gha
   IAM_ROLE_SEESION_NAME: cloudposse/bossy/ci
   S3_BUCKET: cplive-core-ue2-public-bossy-artifacts
 
@@ -85,27 +85,27 @@ jobs:
       ##################################################
       # Build and Push Bossy Docker Image
       ##################################################
-      - name: Docker Meta
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: ${{ env.BOSSY_ECR_REGISTRY }}
-          tags: |
-            type=raw,value=latest,enable={{is_default_branch}}
-            type=ref,event=pr
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}},enable=${{ startsWith(github.ref, 'refs/tags/') }}
-            type=semver,pattern={{major}},enable=${{ startsWith(github.ref, 'refs/tags/') }}
-            type=sha,prefix=,format=long,enable=${{ !startsWith(github.ref, 'refs/tags/') }}
-      - name: Build bossy Docker image
-        id: docker_build_tagged
-        uses: docker/build-push-action@v3
-        with:
-          context: ./
-          file: apps/bossy/Dockerfile
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+      # - name: Docker Meta
+      #   id: meta
+      #   uses: docker/metadata-action@v4
+      #   with:
+      #     images: ${{ env.BOSSY_ECR_REGISTRY }}
+      #     tags: |
+      #       type=raw,value=latest,enable={{is_default_branch}}
+      #       type=ref,event=pr
+      #       type=semver,pattern={{version}}
+      #       type=semver,pattern={{major}}.{{minor}},enable=${{ startsWith(github.ref, 'refs/tags/') }}
+      #       type=semver,pattern={{major}},enable=${{ startsWith(github.ref, 'refs/tags/') }}
+      #       type=sha,prefix=,format=long,enable=${{ !startsWith(github.ref, 'refs/tags/') }}
+      # - name: Build bossy Docker image
+      #   id: docker_build_tagged
+      #   uses: docker/build-push-action@v3
+      #   with:
+      #     context: ./
+      #     file: apps/bossy/Dockerfile
+      #     push: true
+      #     tags: ${{ steps.meta.outputs.tags }}
+      #     labels: ${{ steps.meta.outputs.labels }}
 
       ##################################################
       # Build and Upload Bossy Lambda Zip
