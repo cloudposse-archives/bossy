@@ -18,10 +18,9 @@ env:
   BEFORE_SHA: ${{ github.event.before }}
   BOSSY_ECR_REGISTRY: public.ecr.aws/h1u4b2i4/cloudposse/bossy
   BOSSY_TEST_TAG: bossy:test
-  IAM_ROLE_ARN_ECR: arn:aws:iam::847349463865:role/cplive-core-ue1-public-ecr-public-github-action
-  IAM_ROLE_ARN_S3: arn:aws:iam::847349463865:role/cplive-core-ue2-public-bossy-artifacts-github-action
+  IAM_ROLE_ARN_S3: arn:aws:iam::847349463865:role/cplive-core-ue2-public-lambda-artifacts-gha
   IAM_ROLE_SEESION_NAME: cloudposse/bossy/ci
-  S3_BUCKET: cplive-core-ue2-public-bossy-artifacts
+  S3_BUCKET: cplive-core-ue2-public-lambda-artifacts
 
 jobs:
   build-test-distribute:
@@ -39,20 +38,6 @@ jobs:
       - name: Install Zip
         run: |
           sudo apt-get install -y zip
-
-      ##################################################
-      # Configure AWS
-      ##################################################
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-region: us-east-1
-          role-to-assume: ${{ env.IAM_ROLE_ARN_ECR }}
-          role-session-name: ${{ env.IAM_ROLE_SESSION_NAME }}
-      - name: Login to Public Amazon ECR
-        run: |
-          aws ecr-public get-login-password --region ${{ env.AWS_REGION }} | docker login --username AWS --password-stdin public.ecr.aws
-        shell: bash
 
       ##################################################
       # Checkout the repository
@@ -83,9 +68,9 @@ jobs:
         run: npx nx run-many --target=build --prod --all
 
       ##################################################
-      # Build and Push Bossy Docker Image
+      # Setup Metadata for the Zip File
       ##################################################
-      - name: Docker Meta
+      - name: Metadata
         id: meta
         uses: docker/metadata-action@v4
         with:
@@ -97,15 +82,6 @@ jobs:
             type=semver,pattern={{major}}.{{minor}},enable=${{ startsWith(github.ref, 'refs/tags/') }}
             type=semver,pattern={{major}},enable=${{ startsWith(github.ref, 'refs/tags/') }}
             type=sha,prefix=,format=long,enable=${{ !startsWith(github.ref, 'refs/tags/') }}
-      - name: Build bossy Docker image
-        id: docker_build_tagged
-        uses: docker/build-push-action@v3
-        with:
-          context: ./
-          file: apps/bossy/Dockerfile
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
 
       ##################################################
       # Build and Upload Bossy Lambda Zip
