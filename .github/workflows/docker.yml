@@ -20,7 +20,7 @@ env:
   BOSSY_TEST_TAG: bossy:test
   IAM_ROLE_ARN_S3: arn:aws:iam::847349463865:role/cplive-core-ue2-public-lambda-artifacts-gha
   IAM_ROLE_SEESION_NAME: cloudposse/bossy/ci
-  S3_BUCKET: cplive-core-ue2-public-bossy-artifacts
+  S3_BUCKET: cplive-core-ue2-public-lambda-artifacts
 
 jobs:
   build-test-distribute:
