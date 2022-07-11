@@ -43,16 +43,16 @@ jobs:
       ##################################################
       # Configure AWS
       ##################################################
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-region: us-east-1
-          role-to-assume: ${{ env.IAM_ROLE_ARN_ECR }}
-          role-session-name: ${{ env.IAM_ROLE_SESSION_NAME }}
-      - name: Login to Public Amazon ECR
-        run: |
-          aws ecr-public get-login-password --region ${{ env.AWS_REGION }} | docker login --username AWS --password-stdin public.ecr.aws
-        shell: bash
+      # - name: Configure AWS Credentials
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-region: us-east-1
+      #     role-to-assume: ${{ env.IAM_ROLE_ARN_ECR }}
+      #     role-session-name: ${{ env.IAM_ROLE_SESSION_NAME }}
+      # - name: Login to Public Amazon ECR
+      #   run: |
+      #     aws ecr-public get-login-password --region ${{ env.AWS_REGION }} | docker login --username AWS --password-stdin public.ecr.aws
+      #   shell: bash
 
       ##################################################
       # Checkout the repository
