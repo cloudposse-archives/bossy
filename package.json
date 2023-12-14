@@ -13,7 +13,7 @@
   "dependencies": {
     "@slack/bolt": "3.11.1",
     "@slack/web-api": "6.7.1",
-    "@vendia/serverless-express": "4.8.0",
+    "@vendia/serverless-express": "4.10.5",
     "crypto": "1.0.1",
     "dotenv": "16.0.1",
     "express": "4.18.1",

@@ -286,6 +286,11 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@codegenie/serverless-express@^4.10.7":
+  version "4.11.1"
+  resolved "https://registry.yarnpkg.com/@codegenie/serverless-express/-/serverless-express-4.11.1.tgz#1f7cb9fa58b54e8ae71696d81a801c1f78384c07"
+  integrity sha512-F4+097YG7Whblziu7gZ/Sit6hcn6KDqIWDE60RawZulG/A2Mp//kNSyykJOPAAUfgRdEsKlflju6Osk25zsWNg==
+
 "@colors/colors@1.5.0":
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/@colors/colors/-/colors-1.5.0.tgz#bb504579c1cae923e6576a4f5da43d25f97bdbd9"
@@ -1520,10 +1525,12 @@
     "@typescript-eslint/types" "5.26.0"
     eslint-visitor-keys "^3.3.0"
 
-"@vendia/serverless-express@4.8.0":
-  version "4.8.0"
-  resolved "https://registry.yarnpkg.com/@vendia/serverless-express/-/serverless-express-4.8.0.tgz#2e3410a07e35487e4e1572c4e2700dfba0c933c2"
-  integrity sha512-ELqWnPq+Y0GPnVa7S63pe/SpxYPwksZhuy+lE50S3WabYOzFTusJda0s9TaDZCkJ/hp8fhbDpGr9eA1UhIlVOQ==
+"@vendia/serverless-express@4.10.5":
+  version "4.10.5"
+  resolved "https://registry.yarnpkg.com/@vendia/serverless-express/-/serverless-express-4.10.5.tgz#82495defe131812635eab09f9a9c9923b67f75e8"
+  integrity sha512-Aq1LPNohtX2RUrhUqBG+CPiI2oVWcKap26Z5cJgD4DU+HzQdiiDRi3LL9OPBOdWVa2xBB7fSTJ4QdFjpUkzTHw==
+  dependencies:
+    "@codegenie/serverless-express" "^4.10.7"
 
 "@webassemblyjs/ast@1.11.1":
   version "1.11.1"
